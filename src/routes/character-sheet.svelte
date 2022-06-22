@@ -2,17 +2,24 @@
 	import { browser } from '$app/env';
 	import { playerCharacterGeneral } from '../stores.js';
 
+	/**
+	 * Download
+	 */
+
 	let playerCharacter = '';
 	let downloadFileName = '';
 
 	if (browser) {
-		playerCharacter =
-			'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(localStorage));
+		playerCharacter = 'data:application/json;,' + JSON.stringify(localStorage);
 
 		let playerName = window.localStorage.getItem('playerName');
 		let characterName = window.localStorage.getItem('characterName');
 		downloadFileName = characterName + '-' + playerName + '.json';
 	}
+
+	/**
+	 * Upload
+	 */
 
 	function handleClick() {
 		const fileElem = document.getElementById('fileElem');
@@ -20,7 +27,7 @@
 	}
 
 	/**
-	 * @type {FileList | null | undefined}
+	 * @type {FileList}
 	 */
 	let files;
 
