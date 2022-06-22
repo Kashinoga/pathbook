@@ -10,6 +10,11 @@
 	let characterName = window.localStorage.getItem('characterName');
 	let downloadFileName = characterName + '-' + playerName + '.json';
 
+	function handleClick() {
+		const fileElem = document.getElementById('fileElem');
+		fileElem?.click();
+	}
+
 	/**
 	 * @type {FileList | null | undefined}
 	 */
@@ -36,9 +41,18 @@
 			<div class="space-y-4 place-items-center">
 				<div class="btn-group">
 					<a class="btn" href={playerCharacter} download={downloadFileName}>Backup</a>
+					<input
+						type="file"
+						id="fileElem"
+						multiple
+						accept=".json"
+						style="display:none"
+						bind:files
+					/>
+					<a class="btn" id="fileSelect" on:click={handleClick}>Upload</a>
 				</div>
 				<div class="btn-group">
-					<input type="file" id="userFile" accept=".json" bind:files />
+					<!-- <input type="file" id="userFile" accept=".json" bind:files /> -->
 				</div>
 
 				<div class="form-control">
