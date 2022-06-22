@@ -1,14 +1,18 @@
 <script>
-	import { Input } from 'postcss';
-
+	import { browser } from '$app/env';
 	import { playerCharacterGeneral } from '../stores.js';
 
-	let playerCharacter =
-		'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(localStorage));
+	let playerCharacter = '';
+	let downloadFileName = '';
 
-	let playerName = window.localStorage.getItem('playerName');
-	let characterName = window.localStorage.getItem('characterName');
-	let downloadFileName = characterName + '-' + playerName + '.json';
+	if (browser) {
+		playerCharacter =
+			'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(localStorage));
+
+		let playerName = window.localStorage.getItem('playerName');
+		let characterName = window.localStorage.getItem('characterName');
+		downloadFileName = characterName + '-' + playerName + '.json';
+	}
 
 	function handleClick() {
 		const fileElem = document.getElementById('fileElem');
