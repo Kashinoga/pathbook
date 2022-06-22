@@ -1,20 +1,18 @@
 import { browser } from '$app/env';
-import { derived, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
-const defaultPlayerName = '[loading]';
+const initialValue = '';
 
-const initialValue = browser
-	? window.localStorage.getItem('theme') ?? defaultPlayerName
-	: defaultPlayerName;
-
-export const playerName = writable(initialValue);
-
-playerName.subscribe((value) => {
-	if (browser) {
-		window.localStorage.setItem('theme', value);
-	}
+export const playerCharacterGeneral = writable({
+	playerName: browser ? window.localStorage.getItem('playerName') ?? initialValue : initialValue, // nullish coalescing operator
+	characterName: browser
+		? window.localStorage.getItem('characterName') ?? initialValue
+		: initialValue
 });
 
-export { playerName as default };
-
-export const greeting = derived(playerName, ($name) => `Hello, ${$name}.`);
+playerCharacterGeneral.subscribe((value) => {
+	if (browser) {
+		window.localStorage.setItem('playerName', value.playerName);
+		window.localStorage.setItem('characterName', value.characterName);
+	}
+});
