@@ -6,22 +6,40 @@
 	 * Download
 	 */
 
-	let playerCharacter = '';
-	let downloadFileName = '';
+	// let playerCharacter = '';
+	// let downloadFileName = '';
 
-	if (browser) {
-		playerCharacter = 'data:application/json;,' + JSON.stringify(localStorage);
+	// if (browser) {
+	// 	playerCharacter = 'data:application/json;,' + JSON.stringify(localStorage);
 
-		let playerName = window.localStorage.getItem('playerName');
-		let characterName = window.localStorage.getItem('characterName');
-		downloadFileName = characterName + '-' + playerName + '.json';
+	// 	playerCharacterGeneral.subscribe((value) => {
+	// 		let playerName = window.localStorage.getItem('playerName');
+	// 		let characterName = window.localStorage.getItem('characterName');
+	// 		downloadFileName = characterName + '-' + playerName + '.json';
+	// 	});
+
+	// 	let playerName = window.localStorage.getItem('playerName');
+	// 	let characterName = window.localStorage.getItem('characterName');
+	// 	// downloadFileName = characterName + '-' + playerName + '.json';
+	// }
+
+	function downloadCharacter() {
+		const a = document.createElement('a');
+
+		let url = 'data:application/json;,' + JSON.stringify(localStorage);
+
+		a.href = url;
+		a.download = url;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
 	}
 
 	/**
 	 * Upload
 	 */
 
-	function handleClick() {
+	function uploadCharacter() {
 		const fileElem = document.getElementById('fileElem');
 		fileElem?.click();
 	}
@@ -37,6 +55,7 @@
 			const yeet = JSON.parse(text);
 			for (const [key, value] of Object.entries(yeet)) {
 				console.log(`${key}: ${value}`);
+				window.localStorage.setItem(`${key}`, `${value}`);
 			}
 		});
 	}
@@ -51,7 +70,11 @@
 
 			<div class="space-y-4 place-items-center">
 				<div class="btn-group">
-					<a class="btn" href={playerCharacter} download={downloadFileName}>Backup</a>
+					<!-- <a class="btn" id="downloadCharacter" on:click={downloadCharacter}>Backup</a> -->
+					<!-- <a class="btn" id="downloadCharacter" download={downloadFileName} href={playerCharacter}
+						>Backup</a
+					> -->
+					<button class="btn" id="downloadCharacter" on:click={downloadCharacter}>Backup</button>
 					<input
 						type="file"
 						id="fileElem"
@@ -60,7 +83,7 @@
 						style="display:none"
 						bind:files
 					/>
-					<a class="btn" id="fileSelect" on:click={handleClick}>Upload</a>
+					<button class="btn" id="uploadCharacter" on:click={uploadCharacter}>Upload</button>
 				</div>
 				<div class="btn-group">
 					<!-- <input type="file" id="userFile" accept=".json" bind:files /> -->
