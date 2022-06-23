@@ -29,7 +29,8 @@
 		let url = 'data:application/json;,' + JSON.stringify(localStorage);
 
 		a.href = url;
-		a.download = url;
+		a.download =
+			$playerCharacterGeneral.characterName + '-' + $playerCharacterGeneral.playerName + '.json';
 		document.body.appendChild(a);
 		a.click();
 		document.body.removeChild(a);
@@ -58,6 +59,7 @@
 				window.localStorage.setItem(`${key}`, `${value}`);
 			}
 		});
+		window.location.reload();
 	}
 </script>
 
@@ -89,26 +91,28 @@
 					<!-- <input type="file" id="userFile" accept=".json" bind:files /> -->
 				</div>
 
-				<div class="form-control">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Player Name</span>
-						<input
-							type="text"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.playerName}
-						/>
-					</label>
-				</div>
-				<div class="form-control">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Character Name</span>
-						<input
-							type="text"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.characterName}
-						/>
-					</label>
-				</div>
+				<form id="playerCharacterForm" class="space-y-4">
+					<div class="form-control">
+						<label class="input-group input-group-vertical">
+							<span class="py-1">Player Name</span>
+							<input
+								type="text"
+								class="input input-bordered"
+								bind:value={$playerCharacterGeneral.playerName}
+							/>
+						</label>
+					</div>
+					<div class="form-control">
+						<label class="input-group input-group-vertical">
+							<span class="py-1">Character Name</span>
+							<input
+								type="text"
+								class="input input-bordered"
+								bind:value={$playerCharacterGeneral.characterName}
+							/>
+						</label>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
