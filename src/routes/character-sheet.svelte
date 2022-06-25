@@ -44,16 +44,18 @@
 	}
 </script>
 
-<div class="hero min-h-screen bg-base-200">
-	<div class="hero-content text-center">
-		<div class="max-w-md">
-			<div class="py-4 space-y-2">
-				<h1 class="text-5xl font-bold">Character Sheet</h1>
-			</div>
+<div class="bg-base-200">
+	<div class="text-center">
+		<div class="py-4 space-y-2">
+			<h1 class="p-4 text-5xl font-bold">Character Sheet</h1>
+		</div>
 
-			<div class="space-y-4 place-items-center">
+		<div class="max-w-full">
+			<div class="p-4 space-y-4 place-items-center">
 				<div class="btn-group">
-					<button class="btn" id="downloadCharacter" on:click={downloadCharacter}>Backup</button>
+					<button class="btn btn-accent" id="downloadCharacter" on:click={downloadCharacter}
+						>Backup</button
+					>
 					<input
 						type="file"
 						id="fileElem"
@@ -62,11 +64,13 @@
 						style="display:none"
 						bind:files
 					/>
-					<button class="btn" id="uploadCharacter" on:click={uploadCharacter}>Upload</button>
+					<button class="btn btn-accent" id="uploadCharacter" on:click={uploadCharacter}
+						>Upload</button
+					>
 				</div>
 
-				<form id="playerCharacterForm" class="space-y-4">
-					<div class="form-control">
+				<form id="playerCharacterForm" class="flex flex-row flex-wrap gap-4">
+					<div class="form-control grow">
 						<label class="input-group input-group-vertical">
 							<span class="py-1">Player Name</span>
 							<input
@@ -76,13 +80,23 @@
 							/>
 						</label>
 					</div>
-					<div class="form-control">
+					<div class="form-control grow">
 						<label class="input-group input-group-vertical">
 							<span class="py-1">Character Name</span>
 							<input
 								type="text"
 								class="input input-bordered"
 								bind:value={$playerCharacterGeneral.characterName}
+							/>
+						</label>
+					</div>
+					<div class="form-control grow">
+						<label class="input-group input-group-vertical">
+							<span class="py-1">Experience Points</span>
+							<input
+								type="text"
+								class="input input-bordered"
+								bind:value={$playerCharacterGeneral.experiencePoints}
 							/>
 						</label>
 					</div>
