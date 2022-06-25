@@ -2,7 +2,7 @@
 	import { playerCharacterGeneral } from '../stores.js';
 
 	/**
-	 * Backup
+	 * Download
 	 */
 	function downloadCharacter() {
 		const a = document.createElement('a');
@@ -44,64 +44,50 @@
 	}
 </script>
 
-<div class="bg-base-200">
+<div class="p-4 flex flex-col gap-4 bg-base-200">
 	<div class="text-center">
-		<div class="py-4 space-y-2">
-			<h1 class="p-4 text-5xl font-bold">Character Sheet</h1>
+		<h1 class="text-5xl font-bold">Character Sheet</h1>
+	</div>
+
+	<div class="btn-group justify-center">
+		<button class="btn btn-secondary" id="downloadCharacter" on:click={downloadCharacter}
+			>Download</button
+		>
+		<input type="file" id="fileElem" multiple accept=".json" style="display:none" bind:files />
+		<button class="btn btn-secondary" id="uploadCharacter" on:click={uploadCharacter}>Upload</button
+		>
+	</div>
+
+	<div class="flex flow-row flex-wrap gap-4">
+		<div class="form-control grow">
+			<label class="input-group input-group-vertical">
+				<span class="py-1">Player Name</span>
+				<input
+					type="text"
+					class="input input-bordered"
+					bind:value={$playerCharacterGeneral.playerName}
+				/>
+			</label>
 		</div>
-
-		<div class="max-w-full">
-			<div class="p-4 space-y-4 place-items-center">
-				<div class="btn-group">
-					<button class="btn btn-accent" id="downloadCharacter" on:click={downloadCharacter}
-						>Backup</button
-					>
-					<input
-						type="file"
-						id="fileElem"
-						multiple
-						accept=".json"
-						style="display:none"
-						bind:files
-					/>
-					<button class="btn btn-accent" id="uploadCharacter" on:click={uploadCharacter}
-						>Upload</button
-					>
-				</div>
-
-				<form id="playerCharacterForm" class="flex flex-row flex-wrap gap-4">
-					<div class="form-control grow">
-						<label class="input-group input-group-vertical">
-							<span class="py-1">Player Name</span>
-							<input
-								type="text"
-								class="input input-bordered"
-								bind:value={$playerCharacterGeneral.playerName}
-							/>
-						</label>
-					</div>
-					<div class="form-control grow">
-						<label class="input-group input-group-vertical">
-							<span class="py-1">Character Name</span>
-							<input
-								type="text"
-								class="input input-bordered"
-								bind:value={$playerCharacterGeneral.characterName}
-							/>
-						</label>
-					</div>
-					<div class="form-control grow">
-						<label class="input-group input-group-vertical">
-							<span class="py-1">Experience Points</span>
-							<input
-								type="text"
-								class="input input-bordered"
-								bind:value={$playerCharacterGeneral.experiencePoints}
-							/>
-						</label>
-					</div>
-				</form>
-			</div>
+		<div class="form-control grow">
+			<label class="input-group input-group-vertical">
+				<span class="py-1">Character Name</span>
+				<input
+					type="text"
+					class="input input-bordered"
+					bind:value={$playerCharacterGeneral.characterName}
+				/>
+			</label>
+		</div>
+		<div class="form-control grow">
+			<label class="input-group input-group-vertical">
+				<span class="py-1">Experience Points</span>
+				<input
+					type="text"
+					class="input input-bordered"
+					bind:value={$playerCharacterGeneral.experiencePoints}
+				/>
+			</label>
 		</div>
 	</div>
 </div>
