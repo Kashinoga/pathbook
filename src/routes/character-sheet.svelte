@@ -1,5 +1,7 @@
 <script>
 	import {
+		charismaMod,
+		playerCharacterAbilities,
 		playerCharacterAlignments,
 		playerCharacterGeneral,
 		playerCharacterSizes
@@ -24,7 +26,6 @@
 	/**
 	 * Upload
 	 */
-
 	function uploadCharacter() {
 		const fileElem = document.getElementById('fileElem');
 		fileElem?.click();
@@ -45,6 +46,16 @@
 		});
 		window.location.reload();
 	}
+
+	/**
+	 * Reset
+	 */
+	function resetCharacter() {
+		localStorage.clear();
+		window.location.reload();
+	}
+
+	$: test = $playerCharacterAbilities.charisma;
 </script>
 
 <div class="p-4 flex flex-col gap-4 bg-base-200">
@@ -53,12 +64,12 @@
 	</div>
 
 	<div class="btn-group justify-center">
-		<button class="btn btn-secondary" id="downloadCharacter" on:click={downloadCharacter}
+		<button class="btn btn-primary" id="downloadCharacter" on:click={downloadCharacter}
 			>Download</button
 		>
 		<input type="file" id="fileElem" multiple accept=".json" style="display:none" bind:files />
-		<button class="btn btn-secondary" id="uploadCharacter" on:click={uploadCharacter}>Upload</button
-		>
+		<button class="btn btn-primary" id="uploadCharacter" on:click={uploadCharacter}>Upload</button>
+		<button class="btn btn-primary" id="uploadCharacter" on:click={resetCharacter}>Reset</button>
 	</div>
 
 	<form class="flex flow-row flex-wrap gap-4" id="form">
@@ -88,6 +99,7 @@
 				<input
 					type="number"
 					class="input input-bordered"
+					min="0"
 					max="20"
 					bind:value={$playerCharacterGeneral.level}
 				/>
@@ -180,72 +192,32 @@
 			</label>
 		</div>
 
-		<div class="flex flex-row gap-4">
-			<div class="flex flex-col gap-4">
-				<div class="form-control grow">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Strength</span>
-						<input
-							type="number"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.strength}
-						/>
-					</label>
-				</div>
-				<div class="form-control grow">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Dexterity</span>
-						<input
-							type="number"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.dexterity}
-						/>
-					</label>
-				</div>
-				<div class="form-control grow">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Constitution</span>
-						<input
-							type="number"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.constitution}
-						/>
-					</label>
-				</div>
-				<div class="form-control grow">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Wisdom</span>
-						<input
-							type="number"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.wisdom}
-						/>
-					</label>
-				</div>
-				<div class="form-control grow">
-					<label class="input-group input-group-vertical">
-						<span class="py-1">Charisma</span>
-						<input
-							type="number"
-							class="input input-bordered"
-							bind:value={$playerCharacterGeneral.charisma}
-						/>
-					</label>
-				</div>
-			</div>
-			<div class="flex flex-col gap-4 stats stats-vertical shadow">
-				<div class="stat">
-					<div class="stat-title">Strength</div>
-					<div class="stat-value">test</div>
-					<div class="stat-desc">{$playerCharacterGeneral.strength}</div>
-				</div>
-				<div class="stat">
-					<div class="stat-title">Charisma</div>
-					<div class="stat-value">
-						{$playerCharacterGeneral.charismaSign}{$playerCharacterGeneral.charismaMod}
-					</div>
-					<div class="stat-desc">21% more than last month</div>
-				</div>
+		<div class="flex flex-col gap-4">
+			<!-- <div class="form-control">
+				<label class="input-group">
+					<span>STR</span>
+					<input
+						type="number"
+						class="input input-bordered grow"
+						bind:value={$playerCharacterGeneral.strength}
+					/>
+					<span>{$playerCharacterGeneral.strengthSign}{$playerCharacterGeneral.strengthMod}</span>
+				</label>
+			</div> -->
+			<div class="form-control">
+				<label class="input-group">
+					<span>CHA</span>
+					<input
+						type="number"
+						class="input input-bordered grow"
+						bind:value={$playerCharacterAbilities.charisma}
+					/>
+					{#if Number($charismaMod) > 0}
+						<span>+{$charismaMod}</span>
+					{:else}
+						<span>{$charismaMod}</span>
+					{/if}
+				</label>
 			</div>
 		</div>
 	</form>
